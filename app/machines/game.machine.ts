@@ -129,4 +129,6 @@ export const gameMachine = setup({
       type: "final",
     },
   },
-}) satisfies ActorKitStateMachine<GameEvent, GameInput, GameServerContext>; 
+}) satisfies ActorKitStateMachine<GameEvent, GameInput, GameServerContext>;
+
+export type GameMachine = typeof gameMachine; 

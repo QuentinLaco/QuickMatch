@@ -7,6 +7,7 @@ import {
   useLocation,
 } from "@remix-run/react";
 import type { LinksFunction } from "@remix-run/node";
+import { GameActorKitProvider } from "~/contexts/game.context"
 
 import "./tailwind.css";
 
@@ -53,7 +54,23 @@ export default function App() {
         <title>Quick Match</title>
       </head>
       <body className={isGameRoute ? "min-h-screen w-full bg-gradient-to-br from-blue-500 to-purple-600 text-white" : ""}>
-        <Outlet />
+        <GameActorKitProvider
+          host={process.env.ACTOR_KIT_HOST ?? "127.0.0.1:8787"}
+          actorId="game"
+          checksum=""
+          accessToken=""
+          initialSnapshot={{
+            public: {
+              id: "",
+              config: { minPlayers: 2, maxPlayers: 8, symbolsPerCard: 8 },
+              players: []
+            },
+            private: {} as never,
+            value: "initializing"
+          }}
+        >
+          <Outlet />
+        </GameActorKitProvider>
       </body>
     </html>
   )
