@@ -10,7 +10,7 @@ export default function Index() {
         <p className="mb-8 text-xl">A fun game for the whole family</p>
         <div className="space-x-4">
           <Link
-            to="/game"
+            to="/game-setup"
             className="rounded-full bg-green-500 px-6 py-3 font-semibold text-white transition-colors hover:bg-green-600"
           >
             Start Game
