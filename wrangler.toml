@@ -1,5 +1,5 @@
-name = "Quick Match"
-main = "src/server.ts"
+name = "quick-match"
+main = "server.ts"
 compatibility_date = "2024-01-24"
 
 [[durable_objects.bindings]]

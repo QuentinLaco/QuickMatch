@@ -1,21 +1,19 @@
-import { DurableObjectNamespace } from "@cloudflare/workers-types";
-import { AnyActorServer } from "actor-kit";
+import { logDevReady } from "@remix-run/cloudflare";
+import * as build from "@remix-run/dev/server-build";
 import { createActorKitRouter } from "actor-kit/worker";
 import { WorkerEntrypoint } from "cloudflare:workers";
-import { Game, GameServer } from "./app/servers/game.server";
+import type { Env } from "./app/env";
+import { Game } from "./app/servers/game.server";
+import { Remix } from "./app/remix.server";
 
-interface Env {
-  GAME: DurableObjectNamespace<GameServer>;
-  REMIX: DurableObjectNamespace;
-  ACTOR_KIT_SECRET: string;
-  ACTOR_KIT_HOST: string;
-  NODE_ENV: string;
-  [key: string]: DurableObjectNamespace<AnyActorServer> | unknown;
+// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+if (process.env.NODE_ENV === "development") {
+    logDevReady(build);
 }
 
 const router = createActorKitRouter<Env>(["game"]);
 
-export { Game };
+export { Game, Remix };
 
 export default class Worker extends WorkerEntrypoint<Env> {
   fetch(request: Request): Promise<Response> | Response {
