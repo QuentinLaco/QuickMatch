@@ -61,7 +61,7 @@ export const gameMachine = setup({
 }).createMachine({
   id: "game",
   initial: "initializing",
-  context: ({ input }) => ({
+  context: ({ input }: { input: GameInput }) => ({
     public: {
       id: input.actorId,
       config: {
@@ -71,14 +71,15 @@ export const gameMachine = setup({
       },
       players: [],
     },
+    private: {},
   }),
   states: {
     initializing: {
       on: {
         "client.NEW_GAME": {
           target: "waitingForPlayers",
-          actions: ({ context }) => ({
-            type: "GAME_CREATED",
+          actions: ({ context }: { context: GameServerContext }) => ({
+            type: "service.GAME_CREATED",
             gameId: context.public.id,
             config: context.public.config,
           }),
@@ -91,13 +92,14 @@ export const gameMachine = setup({
           guard: "canAddPlayer",
           actions: [
             "addPlayer",
-            ({ context, event }) => {
+            ({ context, event }: { context: GameServerContext; event: GameEvent }) => {
+              if (event.type !== "client.ADD_PLAYER") return;
               const player = context.public.players.find(
                 (p) => p.id === event.playerId
               );
               if (!player) return;
               return {
-                type: "PLAYER_ADDED",
+                type: "service.PLAYER_ADDED",
                 player,
               };
             },

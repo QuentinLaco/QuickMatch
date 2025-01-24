@@ -72,6 +72,7 @@ export const GameServiceEventSchema = z.discriminatedUnion("type", [
 
 // Input Props
 export const GameInputPropsSchema = z.object({
+  actorId: z.string(),
   minPlayers: z.number(),
   maxPlayers: z.number(),
   symbolsPerCard: z.number(),
