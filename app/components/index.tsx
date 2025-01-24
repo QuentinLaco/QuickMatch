@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Form } from "@remix-run/react"
-import QRCode from "qrcode.react"
+import { QRCodeSVG } from 'qrcode.react'
 
 export default function QuickMatchHomeScreen() {
   const [showGameSetup, setShowGameSetup] = useState(false)
@@ -52,7 +52,7 @@ export default function QuickMatchHomeScreen() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[...Array(playerCount)].map((_, index) => (
               <div key={index} className="text-center">
-                <QRCode value={generatePlayerUrl(index + 1)} size={128} />
+                <QRCodeSVG value={generatePlayerUrl(index + 1)} size={128} />
                 <p className="mt-2">Player {index + 1}</p>
               </div>
             ))}

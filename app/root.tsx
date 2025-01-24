@@ -4,6 +4,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLocation,
 } from "@remix-run/react";
 import type { LinksFunction } from "@remix-run/node";
 
@@ -41,5 +42,19 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  const location = useLocation()
+  const isGameRoute = location.pathname.includes('game')
+
+  return (
+    <html lang="en">
+      <head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Quick Match</title>
+      </head>
+      <body className={isGameRoute ? "min-h-screen w-full bg-gradient-to-br from-blue-500 to-purple-600 text-white" : ""}>
+        <Outlet />
+      </body>
+    </html>
+  )
 }
