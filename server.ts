@@ -3,7 +3,7 @@ import * as build from "@remix-run/dev/server-build";
 import { createActorKitRouter } from "actor-kit/worker";
 import { WorkerEntrypoint } from "cloudflare:workers";
 import type { Env } from "./app/env";
-import { Game } from "./app/servers/game.server";
+import { Game } from "./app/.servers/game.server";
 import { Remix } from "./app/remix.server";
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
